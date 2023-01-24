@@ -20,11 +20,11 @@ export const getStaticProps: GetStaticProps = async () => {
   };
 };
 
-type Family = {
+type Props = {
   feed: FamilyProps[]
 }
 
-const Blog: React.FC<FamilyProps> = (props) => {
+const Blog: React.FC<Props> = (props) => {
   return (
     <Layout>
       <div className="page">

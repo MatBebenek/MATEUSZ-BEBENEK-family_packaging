@@ -23,9 +23,6 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
 
 const Family: React.FC<FamilyProps> = (props) => {
   let name = props.name
-  if (!props.published) {
-    name = `${name} (Draft)`
-  }
 
   return (
     <Layout>
