@@ -1,18 +1,17 @@
 import React from "react"
 import { GetStaticProps } from "next"
 import Layout from "../components/Layout"
-import Post, { PostProps } from "../components/Post"
+import Family, { FamilyProps } from "../components/Family"
 
 // pages/index.tsx
 import prisma from '../lib/prisma';
 
 export const getStaticProps: GetStaticProps = async () => {
-  const feed = await prisma.post.findMany({
-    where: { published: true },
+  const feed = await prisma.family.findMany({
     include: {
-      author: {
-        select: { name: true },
-      },
+      members: {
+        select: { name: true,}
+      }
     },
   });
   return {
@@ -21,19 +20,19 @@ export const getStaticProps: GetStaticProps = async () => {
   };
 };
 
-type Props = {
-  feed: PostProps[]
+type Family = {
+  feed: FamilyProps[]
 }
 
 const Blog: React.FC<Props> = (props) => {
   return (
     <Layout>
       <div className="page">
-        <h1>Public Feed</h1>
+        <h1>List of families</h1>
         <main>
-          {props.feed.map((post) => (
-            <div key={post.id} className="post">
-              <Post post={post} />
+          {props.feed.map((family) => (
+            <div key={family.id} className="family">
+              <Family family={family} />
             </div>
           ))}
         </main>

@@ -2,37 +2,36 @@ import React from "react"
 import { GetServerSideProps } from "next"
 import ReactMarkdown from "react-markdown"
 import Layout from "../../components/Layout"
-import { PostProps } from "../../components/Post"
+import { FamilyProps } from "../../components/Family"
 import prisma from '../../lib/prisma';
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
-  const post = await prisma.post.findUnique({
+  const family = await prisma.family.findUnique({
     where: {
       id: String(params?.id),
     },
     include: {
-      author: {
+      members: {
         select: { name: true },
       },
     },
   });
   return {
-    props: post,
+    props: family,
   };
 };
 
-const Post: React.FC<PostProps> = (props) => {
-  let title = props.title
+const Family: React.FC<FamilyProps> = (props) => {
+  let name = props.name
   if (!props.published) {
-    title = `${title} (Draft)`
+    name = `${name} (Draft)`
   }
 
   return (
     <Layout>
       <div>
-        <h2>{title}</h2>
-        <p>By {props?.author?.name || "Unknown author"}</p>
-        <ReactMarkdown children={props.content} />
+        <h2>{name}</h2>
+        <ReactMarkdown children={props.name} />
       </div>
       <style jsx>{`
         .page {
@@ -59,4 +58,4 @@ const Post: React.FC<PostProps> = (props) => {
   )
 }
 
-export default Post
+export default Family
