@@ -10,8 +10,8 @@ export const getStaticProps: GetStaticProps = async () => {
   const feed = await prisma.family.findMany({
     include: {
       members: {
-        select: { name: true,}
-      }
+        select: { name: true},
+      },
     },
   });
   return {
