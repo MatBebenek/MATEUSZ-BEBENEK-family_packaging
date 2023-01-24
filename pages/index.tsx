@@ -24,7 +24,7 @@ type Family = {
   feed: FamilyProps[]
 }
 
-const Blog: React.FC<Props> = (props) => {
+const Blog: React.FC<FamilyProps> = (props) => {
   return (
     <Layout>
       <div className="page">
