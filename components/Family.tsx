@@ -11,7 +11,7 @@ export type FamilyProps = {
   }
 };
 
-const Family: React.FC<{ post: FamilyProps }> = ({ family }) => {
+const Family: React.FC<{ family: FamilyProps }> = ({ family }) => {
   return (
     <div onClick={() => Router.push("/p/[id]", `/p/${family.id}`)}>
       <h2>{family.name}</h2>
